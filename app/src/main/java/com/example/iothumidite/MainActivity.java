@@ -12,11 +12,15 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     final static int MIN = 300;
     final static int MAX = 700;
     final static int STEP = 5;
+    final static String DATABASE_ADDRESS = "https://projet-iot9-default-rtdb.firebaseio.com/";
 
     private int humidityValue = 0;
     TextView humidityWanted;
@@ -28,9 +32,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance(DATABASE_ADDRESS);
+
         humidityWanted = findViewById(R.id.humidityWanted);
         SeekBar humidityBar = findViewById(R.id.humidityBar);
         humidityBar.setMax( (this.MAX - this.MIN) / this.STEP );
+        DatabaseReference lePif = database.getReference("Humidity_Controll");
+        Toast.makeText(MainActivity.this,"Valeur d'humidité souhaitée : "+ lePif.child("FC:F5:C4:09:73:DC").getKey(),
+                Toast.LENGTH_SHORT).show();
 
         humidityBar.setOnSeekBarChangeListener(this);
     }
