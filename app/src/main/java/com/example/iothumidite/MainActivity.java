@@ -137,6 +137,17 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         //humidityWanted.setText(String.valueOf(humidityValue));
         this.targetHumidity.setValue(humidityValue);
+
+        int actualHumidityNumber = Integer.parseInt(actualHumidityValue.getText().toString());
+        if(actualHumidityNumber < humidityValue){
+            actualHumidityValue.setBackgroundColor(0xFF00BFFF);
+        }
+        else if (actualHumidityNumber > humidityValue){
+            actualHumidityValue.setBackgroundColor(0xFFDC143C);
+        }
+        else {
+            actualHumidityValue.setBackgroundColor(0xFF3AD03F);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
